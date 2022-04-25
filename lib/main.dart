@@ -32,50 +32,145 @@ class MytextPage extends StatefulWidget {
   @override
   State<MytextPage> createState() => _MytextPageState();
 }
+
 enum Place { audio, text, video }
+
 class _MytextPageState extends State<MytextPage> {
   Place? _place;
   bool _textFieldVisible = false;
+  bool _videoFieldVisible = false;
+  bool _audioFieldVisible = false;
 
   void handleSelection(Place? value) {
-    setState(() {
-      _place = value;
-      _textFieldVisible = value == Place.text;
-    });
+    _place = value;
+    // _textFieldVisible = value == Place.text;
+    if (Place.text == _place) {
+      setState(() {
+        _textFieldVisible = value == Place.text;
+
+        _textFieldVisible = true;
+        _videoFieldVisible = false;
+        _audioFieldVisible = false;
+      });
+    } else if (Place.audio == _place) {
+      setState(() {
+        _audioFieldVisible = value == Place.text;
+        _audioFieldVisible = true;
+        _textFieldVisible = false;
+        _videoFieldVisible = false;
+      });
+    }
+
+    if (Place.video == _place) {
+      setState(() {
+        _videoFieldVisible = value == Place.text;
+        _videoFieldVisible = true;
+        _audioFieldVisible = false;
+        _textFieldVisible = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
               RadioListTile(
-                title: Text('Text'),
+                title: Text('Text',style: TextStyle(color: Colors.white),),
                 value: Place.text,
                 groupValue: _place,
                 onChanged: handleSelection,
               ),
               if (_textFieldVisible)
-                 TextField(
+                TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter a Text term',
+                    contentPadding: EdgeInsets.all(15),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color : Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                    ),
+                        hintText: 'Enter a Text term of Text',
+                        hintStyle: TextStyle(color: Colors.grey),
+
+
                   ),
                 ),
               RadioListTile(
-                title: Text('Audio'),
+                title: Text('Audio',style: TextStyle(color: Colors.white),),
                 value: Place.audio,
                 groupValue: _place,
                 onChanged: handleSelection,
               ),
+              if (_audioFieldVisible)
+                TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: 'Enter a Text term of Audio',
+                    hintStyle: TextStyle(color: Colors.grey),
+
+
+                  ),
+                ),
               RadioListTile(
-                title: Text('Video'),
+                title: Text('Video',style: TextStyle(color: Colors.white),),
                 value: Place.video,
                 groupValue: _place,
                 onChanged: handleSelection,
+              ),
+              if (_videoFieldVisible)
+                TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color : Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: 'Enter a Text term of video',
+                    hintStyle: TextStyle(color: Colors.grey),
+
+
+                  ),
+                ),
+              SizedBox(height: 20,),
+              Column(
+                children: [
+                  /*FloatingActionButton(onPressed: () {},child: Text('Submit'),),
+                  TextButton(onPressed: () {} , child: Text('submit'),),*/
+                  ElevatedButton(onPressed: () {} , child: Text('submit'),)
+                ],
               ),
             ],
           ),
