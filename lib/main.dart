@@ -75,107 +75,121 @@ class _MytextPageState extends State<MytextPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              RadioListTile(
-                title: Text('Text',style: TextStyle(color: Colors.white),),
-                value: Place.text,
-                groupValue: _place,
-                onChanged: handleSelection,
-              ),
-              if (_textFieldVisible)
-                TextField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(15),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color : Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
+      body: (Theme(
+        data: Theme.of(context).copyWith(
+            unselectedWidgetColor: Colors.red, disabledColor: Colors.blue),
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                RadioListTile(
+                  title: Text(
+                    'Text',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  value: Place.text,
+                  groupValue: _place,
+                  onChanged: handleSelection,
+                ),
+                if (_textFieldVisible)
+                  TextField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      fillColor: Colors.black,
+                      filled: true,
+                      hintText: 'Enter a Text term of Text',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
-                            color : Colors.white,
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
                         ),
                         borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                        hintText: 'Enter a Text term of Text',
-                        hintStyle: TextStyle(color: Colors.grey),
-
-
                   ),
-                ),
-              RadioListTile(
-                title: Text('Audio',style: TextStyle(color: Colors.white),),
-                value: Place.audio,
-                groupValue: _place,
-                onChanged: handleSelection,
-              ),
-              if (_audioFieldVisible)
-                TextField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(15),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color : Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color : Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: 'Enter a Text term of Audio',
-                    hintStyle: TextStyle(color: Colors.grey),
-
-
+                RadioListTile(
+                  title: Text(
+                    'Audio',
+                    style: TextStyle(color: Colors.white),
                   ),
+                  value: Place.audio,
+                  groupValue: _place,
+                  onChanged: handleSelection,
                 ),
-              RadioListTile(
-                title: Text('Video',style: TextStyle(color: Colors.white),),
-                value: Place.video,
-                groupValue: _place,
-                onChanged: handleSelection,
-              ),
-              if (_videoFieldVisible)
-                TextField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(15),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color : Colors.white,
+                if (_audioFieldVisible)
+                  TextField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(15),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color : Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      borderRadius: BorderRadius.circular(10),
+                      hintText: 'Enter a Text term of Audio',
+                      hintStyle: TextStyle(color: Colors.grey),
                     ),
-                    hintText: 'Enter a Text term of video',
-                    hintStyle: TextStyle(color: Colors.grey),
-
-
                   ),
+                RadioListTile(
+                  title: Text(
+                    'Video',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  value: Place.video,
+                  groupValue: _place,
+                  onChanged: handleSelection,
                 ),
-              SizedBox(height: 20,),
-              Column(
-                children: [
-                  /*FloatingActionButton(onPressed: () {},child: Text('Submit'),),
-                  TextButton(onPressed: () {} , child: Text('submit'),),*/
-                  ElevatedButton(onPressed: () {} , child: Text('submit'),)
-                ],
-              ),
-            ],
+                if (_videoFieldVisible)
+                  TextField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(15),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      hintText: 'Enter a Text term of video',
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  children: [
+                    /*FloatingActionButton(onPressed: () {},child: Text('Submit'),),
+                    TextButton(onPressed: () {} , child: Text('submit'),),*/
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('submit'),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+      )),
     );
   }
 }
