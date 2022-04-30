@@ -1,5 +1,6 @@
-import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
+
+import 'image.dart';
 
 void main() {
   runApp(const MyApp());
@@ -153,38 +154,12 @@ class _MytextPageState extends State<MytextPage> {
                   onChanged: handleSelection,
                 ),
                 if (_videoFieldVisible)
-                  TextField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(15),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      hintText: 'Enter a Text term of video',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: [
-                    /*FloatingActionButton(onPressed: () {},child: Text('Submit'),),
-                    TextButton(onPressed: () {} , child: Text('submit'),),*/
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('submit'),
-                    )
-                  ],
-                ),
+                  ElevatedButton(onPressed: () {   Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyHomePage()),
+                  ); },
+                  child: Text('Add Video'),),
               ],
             ),
           ),
