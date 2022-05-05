@@ -24,19 +24,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   File? _image;
-   File? _cameraImage;
-   File? _video;
-   File? _cameraVideo;
+  File? _image;
+  File? _video;
 
   ImagePicker picker = ImagePicker();
 
   late VideoPlayerController _videoPlayerController;
-  late VideoPlayerController _cameraVideoPlayerController;
 
   _pickImageFromGallery() async {
-    PickedFile? pickedFile =
-    await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+    PickedFile? pickedFile = await picker.getImage(
+        source: ImageSource.gallery, imageQuality: 50, maxWidth: 200);
 
     File image = File(pickedFile!.path);
 
@@ -45,20 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // This funcion will helps you to pick and Image from Camera
-  _pickImageFromCamera() async {
-    PickedFile? pickedFile =
-    await picker.getImage(source: ImageSource.camera, imageQuality: 50);
-
-    File image = File(pickedFile!.path);
-
-    setState(() {
-      _cameraImage = image;
-    });
-  }
-
   _pickVideo() async {
-    PickedFile? pickedFile = await picker.getVideo(source: ImageSource.gallery);
+    PickedFile? pickedFile = await picker.getVideo(
+      source: ImageSource.gallery,
+    );
 
     _video = File(pickedFile!.path);
 
@@ -69,37 +56,26 @@ class _MyHomePageState extends State<MyHomePage> {
       });
   }
 
-  // This funcion will helps you to pick a Video File from Camera
-  _pickVideoFromCamera() async {
-    PickedFile? pickedFile = await picker.getVideo(source: ImageSource.camera);
-
-    _cameraVideo = File(pickedFile!.path);
-
-    _cameraVideoPlayerController = VideoPlayerController.file(_cameraVideo!)
-      ..initialize().then((_) {
-        setState(() {});
-        _cameraVideoPlayerController.play();
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Image / Video Picker"),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
+      backgroundColor: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 40, 10, 0),
+        child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                if (_image != null)
-                  Image.file(_image!)
+               /* if (_image != null)
+                  Image.file(
+                    _image!,
+                    width: 100,
+                  )
                 else
                   Text(
                     "Click on Pick Image to select an Image",
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(fontSize: 18.0, color: Colors.white),
                   ),
                 RaisedButton(
                   onPressed: () {
@@ -109,62 +85,46 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SizedBox(
                   height: 16.0,
-                ),
-                if (_cameraImage != null)
-                  Image.file(_cameraImage!)
-                else
-                  Text(
-                    "Click on Pick Image to select an Image",
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                RaisedButton(
-                  onPressed: () {
-                    _pickImageFromCamera();
-                  },
-                  child: Text("Pick Image From Camera"),
-                ),
+                ),*/
                 if (_video != null)
                   _videoPlayerController.value.isInitialized
-                      ? AspectRatio(
-                    aspectRatio: _videoPlayerController.value.aspectRatio,
-                    child: VideoPlayer(_videoPlayerController),
-                  )
+                      ? Container(
+                    width: 100,
+                        child: AspectRatio(
+                            aspectRatio: _videoPlayerController.value.aspectRatio,
+                            child: Container(
+                              child: VideoPlayer(_videoPlayerController),
+                              width: 100,
+                            ),
+                          ),
+                      )
                       : Container()
                 else
                   Text(
                     "Click on Pick Video to select video",
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(fontSize: 16.0, color: Colors.white60),
                   ),
-                RaisedButton(
+                SizedBox(
+                  height: 20,
+                ),
+                TextButton(
                   onPressed: () {
                     _pickVideo();
                   },
-                  child: Text("Pick Video From Gallery"),
-                ),
-                if (_cameraVideo != null)
-                  _cameraVideoPlayerController.value.isInitialized
-                      ? AspectRatio(
-                    aspectRatio:
-                    _cameraVideoPlayerController.value.aspectRatio,
-                    child: VideoPlayer(_cameraVideoPlayerController),
-                  )
-                      : Container()
-                else
-                  Text(
-                    "Click on Pick Video to select video",
-                    style: TextStyle(fontSize: 18.0),
+                  child: Text(
+                    'Add',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                RaisedButton(
-                  onPressed: () {
-                    _pickVideoFromCamera();
-                  },
-                  child: Text("Pick Video From Camera"),
-                )
+                ),
               ],
             ),
           ),
         ),
       ),
+
     );
   }
 }
